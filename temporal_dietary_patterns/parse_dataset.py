@@ -59,12 +59,12 @@ def plotIronIntake(title, ironIntake, imgFileName):
 
     if __DEBUG__:
         print("Plotting " + title + "'s iron intake...")
-    
+    plt.figure()
     plt.xlim([0, TOTAL_HOURS])
     plt.xticks(range(TOTAL_HOURS), range(TOTAL_HOURS))
     plt.xlabel("Time (hours)")
-    plt.ylabel("Iron Intake (mg)")
-    #plt.title(title)
+    plt.ylabel("% Iron Intake")
+    plt.title(title)
     hr = range(24)
     plt.plot(hr, ironIntake, '.-', label=title)
     plt.savefig(imgFileName)

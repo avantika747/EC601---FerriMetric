@@ -48,6 +48,7 @@ def getDistance(trainingSet, mean):
     mean: (d=24, 1), column  vector
     distance: (n, 1)
     '''
+
     distances = []
     for i in range(len(trainingSet)):
                 
@@ -63,22 +64,7 @@ def getDistance(trainingSet, mean):
         distances.append(dist)        
 
     return distances
-    '''
-    if DIST_FUNC == EUCLIDEAN:
-        # Euclidean distance formula: 
-        diff_sq = np.square(trainingSet - mean)
-        distance = np.sqrt(np.sum(diff_sq, axis=1))
-        distance = np.reshape(distance, (distance.shape[0],))
-        return distance
-    else if DIST_FUNC == EUCLIDEAN_KERNEL:
-        
-    else:
-        # Dynamic time warping distance formula:
-        dtw_distance = []
-        for i in range(len(trainingSet)):
-            dtw_distance.append(dtw(trainingSet[i], mean))
-        return dtw_distance
-    '''
+
 def getObjective(clusters, centroids):
     objective = 0
     for index, data in enumerate(clusters):
