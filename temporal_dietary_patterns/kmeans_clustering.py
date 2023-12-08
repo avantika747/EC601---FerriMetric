@@ -8,6 +8,18 @@ DIST_FUNC = EUCLIDEAN_KERNEL
 
 __DEBUG__ = True
 
+def getAveIronIntake(clusters, metadata):
+    averages = []
+    for cluster in clusters:
+        cl_sum = 0
+        for pt in cluster:
+             pt_tup = tuple(pt)
+             if pt_tup in metadata:
+                cl_sum += metadata[pt_tup][1]
+        averages.append(float(cl_sum) / len(cluster))
+                
+    return averages
+
 def initKRandomCentroids(trainingSet, k):
     '''
     trainingSet: 'row' participants x 'col' hours (24)

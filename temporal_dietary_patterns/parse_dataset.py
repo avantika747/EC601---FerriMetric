@@ -42,13 +42,24 @@ def parseDataset(fileName):
     return participants
 
 def processDataset(participants):
-    allIronIntakes = np.array(list(participants.values()))
 
+    allIronIntakes = np.array(list(participants.values()))
+    seqn = np.array(list(participants.keys())).reshape(len(participants), 1)
+    print(seqn.shape)
     rowSums = np.sum(allIronIntakes, axis=1, keepdims=True)
+    print((rowSums == 0).shape)
+    seqn[rowSums == 0] = -1
     rowSums[rowSums == 0] = 1 # avoid dividing by 0 if participant has no iron intake
+
     normalizedData = allIronIntakes / rowSums
     normalizedData = normalizedData[~np.all(normalizedData == 0, axis = 1)]
-    return normalizedData
+    seqn = seqn[~np.all(seqn == -1, axis = 1)]
+    
+    metadata = {}    
+    for i, data in enumerate(normalizedData):
+        metadata[tuple(data)] = [seqn[i], rowSums[i]] 
+    print(rowSums)
+    return normalizedData, metadata
 
 def plotIronIntake(title, ironIntake, imgFileName):
     '''
